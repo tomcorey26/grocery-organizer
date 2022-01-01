@@ -21,42 +21,47 @@
 </template>
 
 <script lang="ts">
-// import { db } from "../firebase";
-// import { doc, setDoc, getDoc } from "firebase/firestore";
-export default {
+import { db } from '../firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
   setup() {
-    const writeToDatabase = () => {
+    const writeToDatabase = async () => {
       // // Actual WRITE
-      // const writeTofs = async () => {
-      // const ref = doc(db, "testCollection", "testDoc");
-      // const document = {
-      //   text: "Firebase 9 rocks!",
-      // };
-      // try {
-      //   await setDoc(ref, document);
-      //   alert("Success!");
-      // } catch (e) {
-      //   alert("Error!");
-      //   console.error(e);
-      // }
-      alert('Written to database');
+      const writeTofs = async () => {
+        const ref = doc(db, 'testCollection', 'testDoc');
+        const document = {
+          text: 'Firebase 9 rocks!',
+        };
+        try {
+          await setDoc(ref, document);
+          alert('Success!');
+        } catch (e) {
+          alert('Error!');
+          console.error(e);
+        }
+        alert('Written to database');
+      };
+      writeTofs();
     };
 
-    const readFromDatabase = () => {
-      // // Actual READ
-      // const ref = doc(db, "testCollection", "testDoc");
-      // try {
-      //   const document = await getDoc(ref);
-      //   alert(document.data().text);
-      // } catch (e) {
-      //   alert("Error!");
-      //   console.error(e);
-      // }
+    const readFromDatabase = async () => {
+      // Actual READ
+      const ref = doc(db, 'testCollection', 'testDoc');
+      try {
+        const document = await getDoc(ref);
+        alert(document.data().text);
+      } catch (e) {
+        alert('Error!');
+        console.error(e);
+      }
       alert('Read from database');
     };
+
     return { writeToDatabase, readFromDatabase };
   },
-};
+});
 </script>
 
 <style></style>

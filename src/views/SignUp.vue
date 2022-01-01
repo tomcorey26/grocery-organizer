@@ -92,11 +92,11 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { useRouter } from 'vue-router';
-import { reactive, toRefs, computed, ref } from 'vue';
+import { reactive, toRefs, computed, ref, defineComponent } from 'vue';
 import Loading from '@/components/Loading.vue';
 import { isValidEmail } from '@/helpers/isValidEmail';
 
-export default {
+export default defineComponent({
   name: 'SignUp',
   components: {
     Loading,
@@ -165,5 +165,5 @@ export default {
       error,
     };
   },
-};
+});
 </script>

@@ -34,10 +34,10 @@
 
 <script lang="ts">
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
-import { ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import Loading from '@/components/Loading.vue';
 import Dialog from '@/components/Dialog.vue';
-export default {
+export default defineComponent({
   components: {
     Loading,
     Dialog,
@@ -65,5 +65,5 @@ export default {
     };
     return { handleSubmit, message, loading };
   },
-};
+});
 </script>

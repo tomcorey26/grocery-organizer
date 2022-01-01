@@ -67,12 +67,12 @@ import {
   GoogleAuthProvider,
 } from 'firebase/auth';
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import Loading from '@/components/Loading.vue';
 import Dialog from '@/components/Dialog.vue';
 import { isValidEmail } from '@/helpers/isValidEmail';
 
-export default {
+export default defineComponent({
   components: {
     Loading,
     Dialog,
@@ -117,5 +117,5 @@ export default {
     };
     return { handleSubmit, googleSignUp, error, loading };
   },
-};
+});
 </script>
