@@ -59,11 +59,11 @@
   </nav>
 </template>
 
-<script>
-import { useAuthState, useSignOut } from "@/firebase";
-import { useRouter } from "vue-router";
-import { defineComponent } from "vue";
-import Menu from "./Menu.vue";
+<script lang="ts">
+import { useAuthState, useSignOut } from '@/firebase';
+import { useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
+import Menu from './Menu.vue';
 export default defineComponent({
   components: { Menu },
   setup() {
@@ -71,10 +71,10 @@ export default defineComponent({
     const router = useRouter();
     const signOutUser = async () => {
       await useSignOut();
-      await router.replace({ name: "Login" });
+      await router.replace({ name: 'Login' });
     };
     const goToHome = () => {
-      router.push({ name: "Home" });
+      router.push({ name: 'Home' });
     };
     return { user, signOutUser, goToHome };
   },

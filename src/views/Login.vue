@@ -59,18 +59,18 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import {
   getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-} from "firebase/auth";
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import Loading from "@/components/Loading.vue";
-import Dialog from "@/components/Dialog.vue";
-import { isValidEmail } from "@/helpers/isValidEmail";
+} from 'firebase/auth';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import Loading from '@/components/Loading.vue';
+import Dialog from '@/components/Dialog.vue';
+import { isValidEmail } from '@/helpers/isValidEmail';
 
 export default {
   components: {
@@ -82,7 +82,7 @@ export default {
     const router = useRouter();
 
     const loading = ref(false);
-    const error = ref("");
+    const error = ref('');
 
     const handleSubmit = async (e) => {
       loading.value = true;
@@ -94,12 +94,12 @@ export default {
       ) {
         try {
           await signInWithEmailAndPassword(auth, email.value, password.value);
-          await router.replace({ name: "Profile" });
+          await router.replace({ name: 'Profile' });
         } catch (e) {
           error.value = e.message;
         }
       } else {
-        error.value = "Enter valid Email Id and Password";
+        error.value = 'Enter valid Email Id and Password';
       }
       loading.value = false;
     };
@@ -110,7 +110,7 @@ export default {
       try {
         const result = await signInWithPopup(auth, provider);
         GoogleAuthProvider.credentialFromResult(result);
-        router.replace({ name: "Profile" });
+        router.replace({ name: 'Profile' });
       } catch (e) {
         error.value = e.message;
       }
@@ -119,4 +119,3 @@ export default {
   },
 };
 </script>
-

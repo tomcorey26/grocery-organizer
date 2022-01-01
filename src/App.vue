@@ -18,13 +18,14 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref } from "vue";
-import Navbar from "@/components/Navbar.vue";
-import Loading from "@/components/Loading.vue";
-import { getUserState } from "@/firebase";
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import Navbar from '@/components/Navbar.vue';
+import Loading from '@/components/Loading.vue';
+import { getUserState } from '@/firebase';
+
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     Navbar,
     Loading,

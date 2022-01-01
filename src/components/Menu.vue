@@ -54,23 +54,23 @@
   </div>
 </template>
 
-<script>
-import { useAuthState, useSignOut } from "@/firebase";
-import { defineComponent, ref } from "vue";
-import { useRouter } from "vue-router";
+<script lang="ts">
+import { useAuthState, useSignOut } from '@/firebase';
+import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
 export default defineComponent({
-  name: "Menu",
+  name: 'Menu',
   setup() {
     const { isAuthenticated } = useAuthState();
     const menuAuth = [
-      { name: "Home", link: { name: "Home" } },
-      { name: "Profile", link: { name: "Profile" } },
-      { name: "Database", link: { name: "Database" } },
+      { name: 'Home', link: { name: 'Home' } },
+      { name: 'Profile', link: { name: 'Profile' } },
+      { name: 'Database', link: { name: 'Database' } },
     ];
     const menuNoAuth = [
-      { name: "Home", link: { name: "Home" } },
-      { name: "Login", link: { name: "Login" } },
-      { name: "Signup", link: { name: "SignUp" } },
+      { name: 'Home', link: { name: 'Home' } },
+      { name: 'Login', link: { name: 'Login' } },
+      { name: 'Signup', link: { name: 'SignUp' } },
     ];
 
     const show = ref(false);
@@ -83,7 +83,7 @@ export default defineComponent({
     const signOutUser = async () => {
       toggle();
       await useSignOut();
-      await router.replace({ name: "Login" });
+      await router.replace({ name: 'Login' });
     };
 
     return { show, toggle, isAuthenticated, signOutUser, menuAuth, menuNoAuth };

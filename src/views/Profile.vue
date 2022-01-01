@@ -22,15 +22,15 @@
   </section>
 </template>
 
-<script>
-import { useAuthState, useSignOut } from "@/firebase";
-import { useRouter } from "vue-router";
-import { defineComponent, ref } from "vue";
-import Dialog from "@/components/Dialog.vue";
-import Loading from "@/components/Loading.vue";
+<script lang="ts">
+import { useAuthState, useSignOut } from '@/firebase';
+import { useRouter } from 'vue-router';
+import { defineComponent, ref } from 'vue';
+import Dialog from '@/components/Dialog.vue';
+import Loading from '@/components/Loading.vue';
 
 export default defineComponent({
-  name: "Home",
+  name: 'Home',
   components: {
     Dialog,
     Loading,
@@ -44,7 +44,7 @@ export default defineComponent({
     const signOutUser = async () => {
       loading.value = true;
       await useSignOut();
-      await router.replace({ name: "Login" });
+      await router.replace({ name: 'Login' });
       loading.value = false;
     };
 
@@ -52,4 +52,3 @@ export default defineComponent({
   },
 });
 </script>
-

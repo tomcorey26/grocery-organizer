@@ -85,19 +85,19 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
-} from "firebase/auth";
-import { useRouter } from "vue-router";
-import { reactive, toRefs, computed, ref } from "vue";
-import Loading from "@/components/Loading.vue";
-import { isValidEmail } from "@/helpers/isValidEmail";
+} from 'firebase/auth';
+import { useRouter } from 'vue-router';
+import { reactive, toRefs, computed, ref } from 'vue';
+import Loading from '@/components/Loading.vue';
+import { isValidEmail } from '@/helpers/isValidEmail';
 
 export default {
-  name: "SignUp",
+  name: 'SignUp',
   components: {
     Loading,
   },
@@ -106,14 +106,14 @@ export default {
     const router = useRouter();
 
     const state = reactive({
-      email: "",
-      displayName: "",
-      password: "",
-      cpassword: "",
+      email: '',
+      displayName: '',
+      password: '',
+      cpassword: '',
     });
 
     const loading = ref(false);
-    const error = ref("");
+    const error = ref('');
 
     const validate = () => {
       if (
@@ -145,13 +145,13 @@ export default {
           await updateProfile(user, {
             displayName: state.displayName,
           });
-          await router.replace({ name: "Profile" });
+          await router.replace({ name: 'Profile' });
         } catch (e) {
           error.value = e.message;
         }
       } else {
         error.value =
-          "Make sure your email id is valid, Display Name is present, Password is more than 5 characters and Password and Confirm Password are same";
+          'Make sure your email id is valid, Display Name is present, Password is more than 5 characters and Password and Confirm Password are same';
       }
       loading.value = false;
     };

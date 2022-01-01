@@ -32,11 +32,11 @@
   </section>
 </template>
 
-<script>
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import { ref } from "vue";
-import Loading from "@/components/Loading.vue";
-import Dialog from "@/components/Dialog.vue";
+<script lang="ts">
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { ref } from 'vue';
+import Loading from '@/components/Loading.vue';
+import Dialog from '@/components/Dialog.vue';
 export default {
   components: {
     Loading,
@@ -46,7 +46,7 @@ export default {
     const auth = getAuth();
 
     const loading = ref(false);
-    const message = ref("");
+    const message = ref('');
 
     const handleSubmit = async (e) => {
       loading.value = true;
@@ -54,12 +54,12 @@ export default {
       if (email.value.length > 0) {
         try {
           await sendPasswordResetEmail(auth, email.value);
-          message.value = "Email sent on your registered email id";
+          message.value = 'Email sent on your registered email id';
         } catch (e) {
           message.value = e.message;
         }
       } else {
-        message.value = "Enter Email Id";
+        message.value = 'Enter Email Id';
       }
       loading.value = false;
     };
@@ -67,4 +67,3 @@ export default {
   },
 };
 </script>
-

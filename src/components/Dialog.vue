@@ -66,15 +66,15 @@
   </TransitionRoot>
 </template>
 
-<script>
-import { ref } from "vue";
+<script lang="ts">
+import { ref } from 'vue';
 import {
   TransitionRoot,
   TransitionChild,
   Dialog,
   DialogOverlay,
   DialogTitle,
-} from "@headlessui/vue";
+} from '@headlessui/vue';
 
 export default {
   components: {
@@ -87,19 +87,19 @@ export default {
   props: {
     buttonName: {
       type: String,
-      default: "Click Me",
+      default: 'Click Me',
     },
     title: {
       type: String,
-      default: "Title",
+      default: 'Title',
     },
     description: {
       type: String,
-      default: "Hello There!",
+      default: 'Hello There!',
     },
     icon: {
       type: Array,
-      default: ["fas", "info-circle"],
+      default: ['fas', 'info-circle'],
     },
   },
 

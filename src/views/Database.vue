@@ -20,7 +20,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 // import { db } from "../firebase";
 // import { doc, setDoc, getDoc } from "firebase/firestore";
 export default {
@@ -39,7 +39,7 @@ export default {
       //   alert("Error!");
       //   console.error(e);
       // }
-      alert("Written to database");
+      alert('Written to database');
     };
 
     const readFromDatabase = () => {
@@ -52,12 +52,11 @@ export default {
       //   alert("Error!");
       //   console.error(e);
       // }
-      alert("Read from database");
+      alert('Read from database');
     };
     return { writeToDatabase, readFromDatabase };
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>
