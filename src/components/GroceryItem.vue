@@ -10,6 +10,7 @@
       flex
       justify-between
       space-x-4
+      w-full
     "
   >
     <div>

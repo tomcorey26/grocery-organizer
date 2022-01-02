@@ -1,14 +1,28 @@
 <template>
   <div>
     {{ groceryItem.name }}
-    <form>
+    {{ groceryItem.count }}
+    {{ groceryItem.category }}
+    <form
+      @submit.prevent="add(groceryItem)"
+      class="my-5 flex justify-center gap-3"
+    >
       <TextField label="Item" v-model="groceryItem.name" />
+      <TextField
+        type="number"
+        label="Count"
+        v-model.number="groceryItem.count"
+      />
+      <TextField label="Category" v-model="groceryItem.category" />
+      <button>add</button>
     </form>
-    <GroceryItem
-      v-for="item in groceryList"
-      v-bind="item"
-      @click="remove(item)"
-    />
+    <div class="flex flex-col gap-2 w-full">
+      <GroceryItem
+        v-for="item in groceryList"
+        v-bind="item"
+        @click="remove(item)"
+      />
+    </div>
   </div>
 </template>
 
