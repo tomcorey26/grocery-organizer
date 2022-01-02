@@ -8,13 +8,15 @@
       rounded-xl
       shadow-lg
       flex
-      items-center
+      justify-between
       space-x-4
     "
   >
     <div>
       <div class="text-xl font-medium text-black">{{ name }}</div>
       <p class="text-gray-500">{{ category }}</p>
+    </div>
+    <div>
       <p class="text-gray-500">{{ count }}</p>
     </div>
   </div>
