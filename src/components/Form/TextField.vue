@@ -24,7 +24,7 @@
         disabled:shadow-none
         invalid:border-pink-500 invalid:text-pink-600
         focus:invalid:border-pink-500 focus:invalid:ring-pink-500
-        text-grey-500
+        text-black
       "
     />
   </label>

@@ -1,8 +1,5 @@
 <template>
   <div>
-    {{ groceryItem.name }}
-    {{ groceryItem.count }}
-    {{ groceryItem.category }}
     <form
       @submit.prevent="add(groceryItem)"
       class="my-5 flex justify-center gap-3"
@@ -14,7 +11,6 @@
         v-model.number="groceryItem.count"
       />
       <TextField label="Category" v-model="groceryItem.category" />
-      <button>add</button>
     </form>
     <div class="flex flex-col gap-2 w-full">
       <GroceryItem
@@ -30,27 +26,22 @@
 import { defineComponent, reactive } from 'vue';
 import GroceryItem from '@/components/GroceryItem.vue';
 import TextField from '@/components/Form/TextField.vue';
+import DefaultButton from '@/components/Button/DefaultButton.vue';
 import { GroceryItem as GroceryItemType } from '@/types/groceries';
 
 export default defineComponent({
   components: {
     GroceryItem,
     TextField,
+    DefaultButton,
   },
   setup(props) {
     const grocery = useGroceryList([
       { name: 'Rice', count: 2, category: 'Vegetable' },
     ]);
 
-    const groceryItem = reactive<GroceryItemType>({
-      category: 'Vegetable',
-      count: 0,
-      name: '',
-    });
-
     return {
       ...grocery,
-      groceryItem,
     };
   },
 });
@@ -58,8 +49,16 @@ export default defineComponent({
 function useGroceryList(initialList: GroceryItemType[] = []) {
   const groceryList = reactive<GroceryItemType[]>(initialList);
 
+  const groceryItem = reactive<GroceryItemType>({
+    category: 'Vegetable',
+    count: 0,
+    name: '',
+  });
+
   const add = (item: GroceryItemType) => {
     groceryList.push(item);
+    groceryItem.name = '';
+    groceryItem.count = 0;
   };
 
   const remove = (item: GroceryItemType) => {
@@ -71,6 +70,7 @@ function useGroceryList(initialList: GroceryItemType[] = []) {
 
   return {
     groceryList,
+    groceryItem,
     add,
     remove,
   };

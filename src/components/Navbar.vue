@@ -5,19 +5,12 @@
         My App
       </h1>
       <div class="hidden md:block" v-if="user">
-        <router-link :to="{ name: 'Home' }" class="nav-link t-transition-effect"
-          >Home
-        </router-link>
         <router-link
-          :to="{ name: 'Profile' }"
+          v-for="{ routeName, label } in links"
+          :to="{ name: routeName }"
           class="nav-link t-transition-effect"
         >
-          Profile
-        </router-link>
-        <router-link
-          :to="{ name: 'Database' }"
-          class="nav-link t-transition-effect"
-          >Database
+          {{ label }}
         </router-link>
         <a
           class="
@@ -62,21 +55,37 @@
 <script lang="ts">
 import { useAuthState, useSignOut } from '@/firebase';
 import { useRouter } from 'vue-router';
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
 import Menu from './Menu.vue';
+
+interface Link {
+  routeName: string;
+  label: string;
+}
+
 export default defineComponent({
   components: { Menu },
   setup() {
     const { user } = useAuthState();
     const router = useRouter();
+
     const signOutUser = async () => {
       await useSignOut();
       await router.replace({ name: 'Login' });
     };
+
     const goToHome = () => {
       router.push({ name: 'Home' });
     };
-    return { user, signOutUser, goToHome };
+
+    const links = reactive<Link[]>([
+      { routeName: 'Home', label: 'Home' },
+      { routeName: 'Profile', label: 'Profile' },
+      { routeName: 'Database', label: 'Database' },
+      { routeName: 'Groceries', label: 'Groceries' },
+    ]);
+
+    return { user, signOutUser, goToHome, links };
   },
 });
 </script>

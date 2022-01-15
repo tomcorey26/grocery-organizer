@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
+import { ref, defineComponent } from 'vue';
 import {
   TransitionRoot,
   TransitionChild,
@@ -76,7 +76,7 @@ import {
   DialogTitle,
 } from '@headlessui/vue';
 
-export default {
+export default defineComponent({
   components: {
     TransitionRoot,
     TransitionChild,
@@ -116,5 +116,5 @@ export default {
       },
     };
   },
-};
+});
 </script>
