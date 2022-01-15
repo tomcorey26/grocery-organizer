@@ -1,9 +1,6 @@
 <template>
   <div>
-    <form
-      @submit.prevent="add(groceryItem)"
-      class="my-5 flex justify-center gap-3"
-    >
+    <form @submit.prevent="add()" class="my-5 flex justify-center gap-3">
       <TextField label="Item" v-model="groceryItem.name" />
       <TextField
         type="number"
@@ -11,12 +8,14 @@
         v-model.number="groceryItem.count"
       />
       <TextField label="Category" v-model="groceryItem.category" />
+      <button class="t-btn bg-primary h-12">Add</button>
     </form>
     <div class="flex flex-col gap-2 w-full">
       <GroceryItem
         v-for="item in groceryList"
         v-bind="item"
-        @click="remove(item)"
+        @increment="incrementCount(item)"
+        @decrement="decrementCount(item)"
       />
     </div>
   </div>
@@ -55,8 +54,8 @@ function useGroceryList(initialList: GroceryItemType[] = []) {
     name: '',
   });
 
-  const add = (item: GroceryItemType) => {
-    groceryList.push(item);
+  const add = () => {
+    groceryList.push({ ...groceryItem });
     groceryItem.name = '';
     groceryItem.count = 0;
   };
@@ -68,11 +67,22 @@ function useGroceryList(initialList: GroceryItemType[] = []) {
     }
   };
 
+  const decrementCount = (item: GroceryItemType) => {
+    item.count -= 1;
+    if (!item.count) remove(item);
+  };
+
+  const incrementCount = (item: GroceryItemType) => {
+    item.count++;
+  };
+
   return {
     groceryList,
     groceryItem,
     add,
     remove,
+    incrementCount,
+    decrementCount,
   };
 }
 </script>
