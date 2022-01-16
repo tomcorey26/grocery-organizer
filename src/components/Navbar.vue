@@ -2,7 +2,7 @@
   <nav class="t-transition-effect nav-style px-2 md:px-0">
     <div class="t-main-set flex justify-between items-center">
       <h1 class="font-bold text-primary cursor-pointer" @click="goToHome">
-        My App
+        Coreyander
       </h1>
       <div class="hidden md:block" v-if="user">
         <router-link
@@ -13,17 +13,7 @@
           {{ label }}
         </router-link>
         <a
-          class="
-            t-transition-effect
-            py-2
-            px-4
-            ml-4
-            font-heading
-            rounded
-            cursor-pointer
-            bg-error
-            hover:bg-opacity-75
-          "
+          class="t-transition-effect py-2 px-4 ml-4 font-heading rounded cursor-pointer bg-error hover:bg-opacity-75"
           @click="signOutUser"
           >Log Out
         </a>
@@ -83,6 +73,7 @@ export default defineComponent({
       { routeName: 'Profile', label: 'Profile' },
       { routeName: 'Database', label: 'Database' },
       { routeName: 'Groceries', label: 'Groceries' },
+      { routeName: 'Recipes', label: 'Recipes' },
     ]);
 
     return { user, signOutUser, goToHome, links };

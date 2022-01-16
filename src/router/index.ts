@@ -44,6 +44,12 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/recipes',
+    name: 'Recipes',
+    component: () => import('@/views/Recipes.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('@/views/404.vue'),
