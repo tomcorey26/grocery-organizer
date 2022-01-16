@@ -15,13 +15,13 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { GroceryItem } from '@/types/groceries';
+import { FoodItem } from '@/types/food';
 
 export default defineComponent({
   props: {
-    name: String as PropType<GroceryItem['name']>,
-    count: Number as PropType<GroceryItem['count']>,
-    category: String as PropType<GroceryItem['category']>,
+    name: String as PropType<FoodItem['name']>,
+    count: Number as PropType<FoodItem['count']>,
+    category: String as PropType<FoodItem['category']>,
   },
   setup(props) {
     return {};

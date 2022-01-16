@@ -1,13 +1,23 @@
 <template>
   <section class="p-4">
     <input
+      v-model="name"
       name="title"
       class="pt-4 pb-2 focus:border-b-primary focus:border-b-2 w-full bg-transparent text-3xl"
       type="text"
       placeholder="Title"
     />
 
+    <input
+      v-model="link"
+      name="link"
+      class="pt-4 pb-2 focus:border-b-primary focus:border-b-2 w-full bg-transparent text-3xl"
+      type="text"
+      placeholder="Link"
+    />
+
     <textarea
+      v-model="description"
       class="pt-4 pb-2 focus:border-b-primary focus:border-b-2 w-full bg-transparent text-xl text-gray-400"
       name="description"
       placeholder="Description"
@@ -15,20 +25,27 @@
     ></textarea>
 
     <form @submit.prevent="add()" class="my-5 flex justify-center gap-3 t-card">
-      <TextField label="Item" v-model="groceryItem.name" />
+      <TextField label="Item" v-model="ingredient.name" />
       <TextField
         type="number"
         label="Count"
-        v-model.number="groceryItem.count"
+        v-model.number="ingredient.count"
       />
-      <TextField label="Category" v-model="groceryItem.category" />
+      <TextField label="Category" v-model="ingredient.category" />
       <div>
         <button class="t-btn bg-primary">Add</button>
+        <button
+          @click="addRecipe()"
+          type="button"
+          class="t-btn bg-secondary mt-2"
+        >
+          Create Recipe
+        </button>
       </div>
     </form>
     <div class="flex flex-col gap-2 w-full">
       <GroceryItem
-        v-for="item in groceryList"
+        v-for="item in list"
         v-bind="item"
         @increment="incrementCount(item)"
         @decrement="decrementCount(item)"
@@ -38,12 +55,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, ref } from 'vue';
 import GroceryItem from '@/components/GroceryItem.vue';
 import TextField from '@/components/Form/TextField.vue';
 import DefaultButton from '@/components/Button/DefaultButton.vue';
 
-import { GroceryItem as GroceryItemType } from '@/types/groceries';
+import { FoodItem } from '@/types/food';
+import { Recipe } from '@/types/recipes';
+import { createRecipe } from '@/services/recipes';
+
 export default defineComponent({
   components: {
     GroceryItem,
@@ -51,50 +71,66 @@ export default defineComponent({
     DefaultButton,
   },
   setup(props) {
-    const grocery = useGroceryList([
-      { name: 'Rice', count: 2, category: 'Vegetable' },
-    ]);
+    const name = ref('');
+    const description = ref('');
+    const link = ref('');
+    const ingredients = useIngredientsList([]);
+
+    function addRecipe() {
+      const recipe: Recipe = {
+        name: name.value,
+        link: link.value,
+        description: description.value,
+        ingredients: ingredients.list,
+      };
+
+      createRecipe(recipe);
+    }
 
     return {
-      ...grocery,
+      name,
+      description,
+      addRecipe,
+      link,
+      ...ingredients,
     };
   },
 });
 
-function useGroceryList(initialList: GroceryItemType[] = []) {
-  const groceryList = reactive<GroceryItemType[]>(initialList);
+function useIngredientsList(initialList: FoodItem[] = []) {
+  const list = reactive<FoodItem[]>(initialList);
 
-  const groceryItem = reactive<GroceryItemType>({
+  const ingredient = reactive<FoodItem>({
     category: 'Vegetable',
     count: 0,
     name: '',
   });
 
   const add = () => {
-    groceryList.push({ ...groceryItem });
-    groceryItem.name = '';
-    groceryItem.count = 0;
+    list.push({ ...ingredient });
+    ingredient.name = '';
+    ingredient.count = 0;
   };
 
-  const remove = (item: GroceryItemType) => {
-    const index = groceryList.indexOf(item);
+  const remove = (item: FoodItem) => {
+    const index = list.indexOf(item);
     if (index > -1) {
-      groceryList.splice(index, 1);
+      list.splice(index, 1);
     }
   };
 
-  const decrementCount = (item: GroceryItemType) => {
+  const decrementCount = (item: FoodItem) => {
     item.count -= 1;
     if (!item.count) remove(item);
   };
 
-  const incrementCount = (item: GroceryItemType) => {
+  const incrementCount = (item: FoodItem) => {
     item.count++;
   };
 
   return {
-    groceryList,
-    groceryItem,
+    list,
+    ingredient,
     add,
     remove,
     incrementCount,
