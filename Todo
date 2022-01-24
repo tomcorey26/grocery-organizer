@@ -1,0 +1,6 @@
+add recipe by user id
+Create page to list recipes at /recipes
+Create route to create recipes at /recipes/create
+ can also edit with recipe id at recipes/create/{recipe id}
+add error boundary to app
+Add cypress and try it out

@@ -18,6 +18,9 @@ import App from './App.vue';
 import router from './router';
 import '@/assets/index.css';
 
+import Toast, { PluginOptions, POSITION } from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
+
 library.add([
   faGoogle,
   faBars,
@@ -30,7 +33,12 @@ library.add([
   faInfoCircle,
 ] as any);
 
+const toastOptions: PluginOptions = {
+  position: POSITION.BOTTOM_CENTER,
+};
+
 createApp(App)
   .component('font-awesome-icon', FontAwesomeIcon)
   .use(router)
+  .use(Toast, toastOptions)
   .mount('#app');

@@ -1,6 +1,10 @@
 <template>
   <section class="p-4">
-    <button @click="addRecipe()" type="button" class="t-btn bg-green-400 mt-2">
+    <button
+      @click="createRecipe()"
+      type="button"
+      class="t-btn bg-green-400 mt-2"
+    >
       Create Recipe
     </button>
 
@@ -53,59 +57,55 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue';
+<script setup lang="ts">
+import { onMounted, reactive, ref } from 'vue';
 import GroceryItem from '@/components/GroceryItem.vue';
 import TextField from '@/components/Form/TextField.vue';
-import DefaultButton from '@/components/Button/DefaultButton.vue';
 
 import { FoodItem } from '@/types/food';
 import { Recipe } from '@/types/recipes';
-import { createRecipe } from '@/services/recipes';
+import recipeService from '@/services/recipes';
 import { TailwindColor } from '@/utils/generateTailwindColor';
+import { useToast } from 'vue-toastification';
 
-export default defineComponent({
-  components: {
-    GroceryItem,
-    TextField,
-    DefaultButton,
-  },
-  setup(props) {
-    const name = ref('');
-    const description = ref('');
-    const link = ref('');
-    const ingredients = useIngredientsList([]);
-    const nameInput = ref(null);
+const name = ref('');
+const description = ref('');
+const link = ref('');
+const {
+  add,
+  decrementCount,
+  incrementCount,
+  ingredient,
+  list,
+  remove,
+  tailwindColor,
+} = useIngredientsList([]);
+const nameInput = ref(null);
 
-    onMounted(() => {
-      nameInput.value.focus();
-    });
+const toast = useToast();
 
-    function addRecipe() {
-      const recipe: Recipe = {
-        name: name.value,
-        link: link.value,
-        description: description.value,
-        ingredients: ingredients.list,
-      };
-
-      createRecipe(recipe);
-    }
-
-    return {
-      name,
-      description,
-      addRecipe,
-      link,
-      nameInput,
-      ...ingredients,
-    };
-  },
+onMounted(() => {
+  nameInput.value.focus();
 });
+
+async function createRecipe() {
+  const recipe: Recipe = {
+    name: name.value,
+    link: link.value,
+    description: description.value,
+    ingredients: list,
+  };
+
+  try {
+    await recipeService.createRecipe(recipe);
+    toast.success(recipe.name + 'Sucessfully Created!');
+  } catch (err) {
+    toast.error(err);
+  }
+}
 
 function useIngredientsList(initialList: FoodItem[] = []) {
   const list = reactive<FoodItem[]>(initialList);
-  const colorMap = {};
   const tailwindColor = new TailwindColor();
 
   const ingredient = reactive<FoodItem>({
@@ -144,7 +144,6 @@ function useIngredientsList(initialList: FoodItem[] = []) {
     remove,
     incrementCount,
     decrementCount,
-    colorMap,
     tailwindColor,
   };
 }
