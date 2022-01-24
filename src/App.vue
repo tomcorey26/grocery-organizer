@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isLoading"
+    v-if="store.isLoading"
     class="flex items-center justify-center"
     style="height: 80vh"
   >
@@ -18,27 +18,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 import Navbar from '@/components/Navbar.vue';
 import Loading from '@/components/Loading.vue';
 import { getUserState } from '@/firebase';
+import { useGlobalState } from './store';
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    Navbar,
-    Loading,
-  },
-  setup(props) {
-    const isLoading = ref(true);
-    getUserState().then(() => {
-      isLoading.value = false;
-    });
-    return {
-      isLoading,
-    };
-  },
+const store = useGlobalState();
+getUserState().then(() => {
+  store.isLoading = false;
 });
 </script>
 

@@ -67,7 +67,9 @@ import { Recipe } from '@/types/recipes';
 import recipeService from '@/services/recipes';
 import { TailwindColor } from '@/utils/generateTailwindColor';
 import { useToast } from 'vue-toastification';
+import { useGlobalState } from '@/store';
 
+const store = useGlobalState();
 const name = ref('');
 const description = ref('');
 const link = ref('');
@@ -97,7 +99,9 @@ async function createRecipe() {
   };
 
   try {
+    store.isLoading = true;
     await recipeService.createRecipe(recipe);
+    store.isLoading = false;
     toast.success(recipe.name + 'Sucessfully Created!');
   } catch (err) {
     toast.error(err);
