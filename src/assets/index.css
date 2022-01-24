@@ -85,7 +85,7 @@ input:focus {
 
 /* Cards */
 .t-card {
-  @apply p-6 bg-white dark:bg-slate-900 rounded-xl shadow-lg;
+  @apply p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg;
 }
 
 /* Cards */

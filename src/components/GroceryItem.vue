@@ -1,10 +1,11 @@
 <template>
   <div
-    class="p-6 max-w-md mx-auto bg-white rounded-xl shadow-lg flex justify-between space-x-4 w-full"
+    class="px-2 py-3 max-w-md mx-auto t-card flex justify-between space-x-4 w-full text-white"
   >
     <div>
-      <div class="text-xl font-medium text-black">{{ name }}</div>
-      <p class="text-gray-500">{{ category }}</p>
+      <div class="w-full h-6" :class="[color]"></div>
+      <div class="text-xl font-medium">{{ name }}</div>
+      <p class="opacity-60">{{ category }}</p>
     </div>
     <div class="text-gray-500">
       <span @click="$emit('increment')">^</span>
@@ -22,6 +23,7 @@ export default defineComponent({
     name: String as PropType<FoodItem['name']>,
     count: Number as PropType<FoodItem['count']>,
     category: String as PropType<FoodItem['category']>,
+    color: String,
   },
   setup(props) {
     return {};
