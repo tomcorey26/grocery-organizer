@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { getUserState } from '@/firebase';
+import { RouteRecordRaw } from 'vue-router';
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',
@@ -48,6 +49,16 @@ const routes = [
     name: 'Recipes',
     component: () => import('@/views/Recipes.vue'),
     meta: { requiresAuth: true },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/components/RecipeList.vue'),
+      },
+      {
+        path: 'create',
+        component: () => import('@/components/RecipeCreate.vue'),
+      },
+    ],
   },
   {
     path: '/:pathMatch(.*)*',
