@@ -1,6 +1,13 @@
+[x] Create page to list recipes at /recipes
+[x] Create route to create recipes at /recipes/create
+
+Read through composition api docs
+List useful things from vue use that you could use
+
 add recipe by user id
-Create page to list recipes at /recipes
-Create route to create recipes at /recipes/create
+ Read through firebase docs and do tutorial, maybe switch to using realtime database instead
+  https://firebase.google.com/docs/database/web/start
  can also edit with recipe id at recipes/create/{recipe id}
+
 add error boundary to app
 Add cypress and try it out

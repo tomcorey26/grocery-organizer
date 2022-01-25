@@ -51,7 +51,7 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
     children: [
       {
-        path: 'list',
+        path: '',
         component: () => import('@/components/RecipeList.vue'),
       },
       {
